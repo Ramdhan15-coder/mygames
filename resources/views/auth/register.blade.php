@@ -89,7 +89,7 @@
                     <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                     <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Ulangi password" required>
                 </div>
-                <button type="submit" class="btn register-btn w-100">Daftar</button>
+                <button type="submit" class="btn btn-primary w-100">Daftar</button>
             </form>
         </div>
     </div>

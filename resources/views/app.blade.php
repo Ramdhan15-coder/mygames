@@ -121,7 +121,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Card 1 -->
+            <!-- Card 5 -->
             <div class="col">
                 <div class="card h-100" onclick="handleCardClick()">
                     <img src="{{ asset('assets/genshin.jpg') }}" class="card-img-top custom-img w-100" alt="Product 1">
@@ -131,7 +131,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Card 2 -->
+            <!-- Card 6 -->
             <div class="col">
                 <div class="card h-100" onclick="handleCardClick()">
                     <img src="{{ asset('assets/fc.jpg') }}" class="card-img-top custom-img w-100" alt="Product 2">
