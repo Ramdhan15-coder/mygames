@@ -4,13 +4,13 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\GameController;
-
+use App\Http\Controllers\Admin\UserController;
 
 
 Route::get('/', function () {
     return view('app');
 });
-
+Route::resource('users', UserController::class);
 
 // Halaman login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
