@@ -5,13 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\KategoriController;
 
 
 Route::get('/', function () {
     return view('app');
 });
 Route::resource('users', UserController::class);
-
+Route::resource('kategori', KategoriController::class);
 // Halaman login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 // Proses login
