@@ -14,7 +14,7 @@ Route::get('/', function () {
 });
 Route::resource('users', UserController::class);
 Route::resource('kategori', KategoriController::class);
-// Route::resource('produk', ProdukController::class);
+Route::resource('produk', ProdukController::class);
 // Halaman login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 // Proses login
