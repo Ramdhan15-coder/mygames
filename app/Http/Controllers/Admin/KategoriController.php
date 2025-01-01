@@ -38,7 +38,7 @@ class KategoriController extends Controller
             'image' => $imagePath,
         ]);
 
-        return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil ditambahkan.');
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     public function edit(Kategori $kategori)
@@ -64,12 +64,12 @@ class KategoriController extends Controller
             'deskripsi' => $request->deskripsi,
         ]);
 
-        return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil diperbarui.');
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil diperbarui.');
     }
 
     public function destroy(Kategori $kategori)
     {
         $kategori->delete();
-        return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil dihapus.');
+        return redirect()->route('kategori.index')->with('success', 'Kategori berhasil dihapus.');
     }
 }

@@ -6,13 +6,15 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\ProdukController;
 
-
+require __DIR__ . '/auth.php';
 Route::get('/', function () {
     return view('app');
 });
 Route::resource('users', UserController::class);
 Route::resource('kategori', KategoriController::class);
+// Route::resource('produk', ProdukController::class);
 // Halaman login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 // Proses login
@@ -42,3 +44,8 @@ Route::get('/game/genshin', [GameController::class, 'genshin'])->name('game.gens
 // Route untuk PUBG
 Route::get('/game/bola', [GameController::class, 'bola'])->name('game.bola');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});

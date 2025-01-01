@@ -1,4 +1,4 @@
-<x-layouts.app>
+<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Users') }}
@@ -10,9 +10,11 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6">
                     <!-- Button to add new user -->
-                    <a href="{{ route('admin.users.create') }}"
-                        class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Add New User</a>
-
+                    <a href="{{ route('users.create') }}"
+                        class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Tambah User</a>
+                    @if (session('success'))
+                        <div class="alert alert-success text-green-600 mt-4">{{ session('success') }}</div>
+                    @endif
                     <!-- Users Table -->
                     <table class="min-w-full mt-6">
                         <thead class="bg-gray-200 dark:bg-gray-700">
@@ -20,13 +22,13 @@
                                 <th class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-100">ID
                                 </th>
                                 <th class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    Name</th>
+                                    Nama</th>
                                 <th class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-100">
                                     Email</th>
                                 <th class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-100">
                                     Role</th>
                                 <th class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-100">
-                                    Actions</th>
+                                    Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white dark:bg-gray-800">
@@ -40,9 +42,17 @@
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                                         {{ $user->role->nama_role }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
-                                        <a href="{{ route('admin.users.edit', $user->id) }}"
+                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 flex space-x-4">
+                                        <a href="{{ route('users.edit', $user->id) }}"
                                             class="text-blue-500 hover:text-blue-700">Edit</a>
+                                        <!-- Delete Form -->
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="text-red-500 hover:text-red-700">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -52,4 +62,4 @@
             </div>
         </div>
     </div>
-</x-layouts.app>
+</x-app-layout>

@@ -1,5 +1,4 @@
-<!-- resources/views/admin/users/create.blade.php -->
-<x-layouts.app>
+<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Create New User') }}
@@ -11,7 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="p-6">
                     <!-- Form for creating user -->
-                    <form action="{{ route('admin.users.store') }}" method="POST">
+                    <form action="{{ route('users.store') }}" method="POST">
                         @csrf
                         <div class="space-y-4">
                             <!-- Name -->
@@ -62,4 +61,4 @@
             </div>
         </div>
     </div>
-</x-layouts.app>
+</x-app-layout>
