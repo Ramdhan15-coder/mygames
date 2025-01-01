@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\KuponController;
+use App\Http\Controllers\Admin\RoleController;
 
 require __DIR__ . '/auth.php';
 Route::get('/', function () {
@@ -17,6 +18,7 @@ Route::resource('users', UserController::class);
 Route::resource('kategori', KategoriController::class);
 Route::resource('produk', ProdukController::class);
 Route::resource('kupon', KuponController::class);
+Route::resource('role', RoleController::class);
 // Halaman login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 // Proses login

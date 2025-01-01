@@ -10,14 +10,14 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up()
-{
-    Schema::create('roles', function (Blueprint $table) {
-        $table->id(); // Primary key
-        $table->string('nama_role'); // Nama role
-        $table->text('deskripsi')->nullable(); // Deskripsi role
-        $table->timestamps();
-    });
-}
+    {
+        Schema::create('roles', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_role');
+            $table->text('deskripsi')->nullable();
+            $table->timestamps();
+        });
+    }
 
 
     /**
