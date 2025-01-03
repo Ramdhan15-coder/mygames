@@ -55,54 +55,61 @@
                         <tbody>
                             @foreach ($orders as $order)
                                 <tr>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{{  $loop->iteration }}
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{{  $order->akun_game }}
+                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{{ $loop->iteration }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{{ $order->akun_game }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                                        {{ $order->produk->produk }} {{ $order->produk->satuan }}
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
-                                        {{ $order->produk->produk }} {{ $order->produk->satuan }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
-                                        {{ $order->quantity }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{{ $order->quantity }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">Rp
-                                        {{ number_format($order->final_harga, 0, ',', '.') }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
-                                        <span
-                                            class="badge 
-                                                @if ($order->status == 'Terbayar') badge-warning 
-                                                @elseif($order->status == 'Pending') badge-info
-                                                @elseif($order->status == 'Cancelled') badge-danger
-                                                @elseif($order->status == 'Berhasil') badge-success 
-                                                @else badge-secondary @endif">
-                                            {{ $order->status }}
-                                        </span>
+                                        {{ number_format($order->final_harga, 0, ',', '.') }}
                                     </td>
-
                                     <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
-                                        <form action="{{ route('order.updateStatus', $order->id) }}" method="POST"
-                                            style="display: inline-block;">
-                                            @csrf
-                                            @method('PUT')
-
-                                            <select name="status" class="form-select form-select-sm text-black"
-                                                onchange="this.form.submit()">
-                                                <option value="Pending"
-                                                    {{ $order->status == 'Pending' ? 'selected' : '' }}>Pending
-                                                </option>
-                                                <option value="Terbayar"
-                                                    {{ $order->status == 'Terbayar' ? 'selected' : '' }}>Terbayar
-                                                </option>
-                                                <option value="Cancelled"
-                                                    {{ $order->status == 'Cancelled' ? 'selected' : '' }}>Cancelled
-                                                </option>
-                                                <option value="Berhasil"
-                                                    {{ $order->status == 'Berhasil' ? 'selected' : '' }}>Berhasil
-                                                </option>
-                                            </select>
-                                        </form>
+                                        @if ($order->payment)
+                                            <span
+                                                class="badge 
+                                                    @if ($order->payment->status == 'Terbayar') badge-warning 
+                                                    @elseif($order->payment->status == 'Pending') badge-info
+                                                    @elseif($order->payment->status == 'Cancelled') badge-danger
+                                                    @elseif($order->payment->status == 'Berhasil') badge-success 
+                                                    @else badge-secondary @endif">
+                                                {{ $order->payment->status }}
+                                            </span>
+                                        @else
+                                            <span class="badge badge-secondary">Belum Dibayar</span>
+                                        @endif
                                     </td>
-
+                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                                        @if ($order->payment)
+                                            <form action="{{ route('order.updateStatus', $order->id) }}" method="POST"
+                                                style="display: inline-block;">
+                                                @csrf
+                                                @method('PUT')
+                        
+                                                <select name="status" class="form-select form-select-sm text-black"
+                                                    onchange="this.form.submit()">
+                                                    <option value="Pending"
+                                                        {{ $order->payment->status == 'Pending' ? 'selected' : '' }}>Pending
+                                                    </option>
+                                                    <option value="Terbayar"
+                                                        {{ $order->payment->status == 'Terbayar' ? 'selected' : '' }}>Terbayar
+                                                    </option>
+                                                    <option value="Cancelled"
+                                                        {{ $order->payment->status == 'Cancelled' ? 'selected' : '' }}>Cancelled
+                                                    </option>
+                                                    <option value="Berhasil"
+                                                        {{ $order->payment->status == 'Berhasil' ? 'selected' : '' }}>Berhasil
+                                                    </option>
+                                                </select>
+                                            </form>
+                                        @else
+                                            <span class="text-gray-500">-</span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
+                        
                     </table>
                     <div class="mt-6">
                         {{ $orders->links() }}

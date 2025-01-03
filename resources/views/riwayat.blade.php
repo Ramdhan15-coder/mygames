@@ -118,21 +118,26 @@
             <tbody>
                 @forelse ($orders as $order)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $order->akun_game }}</td>
-                        <td>{{ $order->produk->produk }} {{ $order->produk->satuan }}</td>
-                        <td>{{ $order->quantity }}</td>
-                        <td>Rp {{ number_format($order->total_harga, 0, ',', '.') }}</td>
-                        <td class="text-center">
-                            @if ($order->diskon === null)
+                        <td class="px-4 py-2 text-sm text-gray-900">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-2 text-sm text-gray-900">{{ $order->akun_game }}</td>
+                        <td class="px-4 py-2 text-sm text-gray-900">
+                            {{ $order->produk->produk }} {{ $order->produk->satuan }}
+                        </td>
+                        <td class="px-4 py-2 text-sm text-gray-900">{{ $order->quantity }}</td>
+                        <td class="px-4 py-2 text-sm text-gray-900">
+                            Rp {{ number_format($order->total_harga, 0, ',', '.') }}
+                        </td>
+                        <td class="px-4 py-2 text-sm text-center">
+                            @if (is_null($order->diskon))
                                 <span class="text-danger">-</span>
                             @else
                                 <span class="text-success">{{ $order->diskon }}%</span>
                             @endif
                         </td>
-
-                        <td>Rp {{ number_format($order->final_harga, 0, ',', '.') }}</td>
-                        <td>
+                        <td class="px-4 py-2 text-sm text-gray-900">
+                            Rp {{ number_format($order->final_harga, 0, ',', '.') }}
+                        </td>
+                        <td class="px-4 py-2 text-sm text-center">
                             @if ($order->status == 'Pending')
                                 <span class="badge bg-secondary">{{ $order->status }}</span>
                             @elseif ($order->status == 'Terbayar')
@@ -146,10 +151,13 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center">Belum ada pesanan.</td>
+                        <td colspan="8" class="px-4 py-2 text-center text-gray-500">
+                            Belum ada pesanan.
+                        </td>
                     </tr>
                 @endforelse
             </tbody>
+            
         </table>
     </div>
 

@@ -19,11 +19,29 @@ class Order extends Model
         'kupon',
         'diskon',
         'final_harga',
-        'bukti_pembayaran',
-        'Status',
     ];
+
+    // Relasi ke produk
     public function produk()
     {
         return $this->belongsTo(Produk::class, 'produk_id');
+    }
+
+    // Relasi ke kategori
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id');
+    }
+
+    // Relasi ke user
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // Relasi ke pembayaran
+    public function payment()
+    {
+        return $this->hasOne(Payment::class, 'order_id');
     }
 }

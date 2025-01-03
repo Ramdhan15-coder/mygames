@@ -20,12 +20,14 @@ class KategoriController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi
         $request->validate([
             'nama' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
+        // Storage
+        
         $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('kategoris', 'public');

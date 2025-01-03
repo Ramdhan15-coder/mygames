@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\Produk;
 use App\Models\Kupon;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::paginate(10);
+        $orders = Order::with('payment')->paginate(10);
         return view('admin.order.index', compact('orders'));
     }
 
@@ -47,14 +48,7 @@ class OrderController extends Controller
             }
         }
 
-        $path = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
-        // dd([
-        //     'diskon' => $diskon,
-        //     'total_harga' => $total_harga,
-        //     'final_harga' => $final_harga,
-        // ]);
-        
-        Order::create([
+        $order = Order::create([
             'user_id' => Auth::id(),
             'kategori_id' => $produk->kategori_id,
             'produk_id' => $produk->id,
@@ -64,23 +58,30 @@ class OrderController extends Controller
             'kupon' => $request->kupon,
             'diskon' => $diskon,
             'final_harga' => $final_harga,
+        ]);
+
+        $path = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
+
+        Payment::create([
+            'order_id' => $order->id,
             'bukti_pembayaran' => $path,
             'status' => 'Terbayar',
         ]);
 
-        return redirect()->route('orders.create')->with('success', 'Pesanan berhasil dibuat.');
+        return redirect()->route('order.create')->with('success', 'Pesanan berhasil dibuat.');
     }
+
     public function updateStatus(Request $request, $id)
     {
-        $order = Order::findOrFail($id);
+        $payment = Payment::where('order_id', $id)->firstOrFail();
+
         $request->validate([
             'status' => 'required|in:Terbayar,Pending,Cancelled,Berhasil',
         ]);
 
-        $order->status = $request->status;
-        $order->save();
+        $payment->status = $request->status;
+        $payment->save();
 
-        return redirect()->route('order.index')->with('success', 'Status pesanan berhasil diperbarui.');
+        return redirect()->route('order.index')->with('success', 'Status pembayaran berhasil diperbarui.');
     }
-    
 }

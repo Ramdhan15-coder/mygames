@@ -23,6 +23,8 @@ class ProdukController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi ⬇️
+       
         $request->validate([
             'kategori_id' => 'required|exists:kategoris,id',
             'produk' => 'required|string|max:255',

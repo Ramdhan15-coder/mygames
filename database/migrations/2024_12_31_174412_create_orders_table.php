@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
@@ -20,8 +19,6 @@ class CreateOrdersTable extends Migration
             $table->string('kupon')->nullable();
             $table->integer('diskon')->nullable();
             $table->decimal('final_harga', 15, 2);
-            $table->string('bukti_pembayaran');
-            $table->string('status')->default('Terbayar');
             $table->timestamps();
         });
     }
