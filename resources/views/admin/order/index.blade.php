@@ -73,7 +73,29 @@
                                         </span>
                                     </td>
 
-                                    
+                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                                        <form action="{{ route('order.updateStatus', $order->id) }}" method="POST"
+                                            style="display: inline-block;">
+                                            @csrf
+                                            @method('PUT')
+
+                                            <select name="status" class="form-select form-select-sm text-black"
+                                                onchange="this.form.submit()">
+                                                <option value="Pending"
+                                                    {{ $order->status == 'Pending' ? 'selected' : '' }}>Pending
+                                                </option>
+                                                <option value="Terbayar"
+                                                    {{ $order->status == 'Terbayar' ? 'selected' : '' }}>Terbayar
+                                                </option>
+                                                <option value="Cancelled"
+                                                    {{ $order->status == 'Cancelled' ? 'selected' : '' }}>Cancelled
+                                                </option>
+                                                <option value="Berhasil"
+                                                    {{ $order->status == 'Berhasil' ? 'selected' : '' }}>Berhasil
+                                                </option>
+                                            </select>
+                                        </form>
+                                    </td>
 
                                 </tr>
                             @endforeach
