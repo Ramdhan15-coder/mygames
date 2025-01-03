@@ -85,67 +85,23 @@
         @yield('content') <!-- Konten dinamis halaman -->
         <!-- Cards Section -->
         <div class="row row-cols-1 row-cols-md-4 g-4">
-            <!-- Card 1: Mobile Legends -->
-            <div class="col">
-                <div class="card h-100" onclick="handleCardClick('ml')">
-                    <img src="{{ asset('assets/julian.jpg') }}" class="card-img-top custom-img w-100" alt="Product 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Mobile Legends</h5>
-                        <p class="card-text">TopUp Mobile Legends</p>
+            @foreach ($kategoris as $kategori)
+                <div class="col">
+                    <div class="card h-100">
+                        <!-- Tautkan gambar ke halaman order/create -->
+                        <a href="{{ route('orders.create', ['kategori_id' => $kategori->id]) }}">
+                            <img src="{{ Storage::url($kategori->image) }}" class="card-img-top custom-img w-100"
+                                alt="{{ $kategori->nama }}">
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $kategori->nama }}</h5>
+                            <p class="card-text">{{ $kategori->deskripsi }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Card 2: Free Fire -->
-            <div class="col">
-                <div class="card h-100" onclick="handleCardClick('ff')">
-                    <img src="{{ asset('assets/ff.jpg') }}" class="card-img-top custom-img w-100" alt="Product 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Free Fire</h5>
-                        <p class="card-text">TopUp FreeFire</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Card 3: PUBG -->
-            <div class="col">
-                <div class="card h-100" onclick="handleCardClick('pubg')">
-                    <img src="{{ asset('assets/pubg.jpg') }}" class="card-img-top custom-img w-100" alt="Product 3">
-                    <div class="card-body">
-                        <h5 class="card-title">PUBG</h5>
-                        <p class="card-text">TopUp PUBG</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Card 4: Honor Of Kings -->
-            <div class="col">
-                <div class="card h-100" onclick="handleCardClick('hok')">
-                    <img src="{{ asset('assets/hok.jpg') }}" class="card-img-top custom-img w-100" alt="Product 4">
-                    <div class="card-body">
-                        <h5 class="card-title">Honor Of Kings</h5>
-                        <p class="card-text">TopUp Honor Of Kings</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Card 5: Genshin Impact -->
-            <div class="col">
-                <div class="card h-100" onclick="handleCardClick('genshin')">
-                    <img src="{{ asset('assets/genshin.jpg') }}" class="card-img-top custom-img w-100" alt="Product 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Genshin Impact</h5>
-                        <p class="card-text">TopUp Genshin Impact</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Card 6: FC Mobile -->
-            <div class="col">
-                <div class="card h-100" onclick="handleCardClick('bola')">
-                    <img src="{{ asset('assets/fc.jpg') }}" class="card-img-top custom-img w-100" alt="Product 2">
-                    <div class="card-body">
-                        <h5 class="card-title">FC Mobile</h5>
-                        <p class="card-text">TopUp FC Mobile</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
+    </div>
         
 
     <!-- Footer -->
