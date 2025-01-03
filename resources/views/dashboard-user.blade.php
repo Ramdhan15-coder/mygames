@@ -53,14 +53,14 @@
         <div class="container-fluid">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Products</a>
+                    <a class="nav-link text-white" href="{{ route('dashboard') }}">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Cek Transaksi</a>
+                    <a class="nav-link text-white" href="{{ route('riwayat') }}">Cek Transaksi</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link text-white" href="#">Cek Status</a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#">Profile</a>
                 </li>
@@ -68,15 +68,15 @@
             <ul class="navbar-nav ms-auto" style="margin-right: 300px">
                 <!-- Tombol Logout -->
                 @auth
-                <li class="nav-item">
-                    <form method="POST" action="{{ route('logout') }}" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Logout</button>
-                    </form>
-                </li>
+                    <li class="nav-item">
+                        <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </form>
+                    </li>
                 @endauth
             </ul>
-            
+
         </div>
     </nav>
 
