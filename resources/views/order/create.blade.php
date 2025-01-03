@@ -282,7 +282,22 @@
             });
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/dashboard-user';
+                }
+            });
+        </script>
+    @endif
     <!-- Footer -->
     <footer class="bg-dark text-white text-center py-4 mt-5">
         @yield('footer') <!-- Footer yang bisa diubah per halaman -->

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\KuponController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\OrderController;
 
 require __DIR__ . '/auth.php';
 Route::get('/', function () {
@@ -19,6 +20,8 @@ Route::resource('kategori', KategoriController::class);
 Route::resource('produk', ProdukController::class);
 Route::resource('kupon', KuponController::class);
 Route::resource('role', RoleController::class);
+Route::resource('order', OrderController::class);
+Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 // Halaman login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 // Proses login
