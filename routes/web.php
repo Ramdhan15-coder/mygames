@@ -33,9 +33,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-
-Route::get('/dashboard-user', [AuthController::class, 'dashboard'])->name('dashboard-user');
-Route::get('/dashboard-user', [AuthController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard-user', [DashboardController::class, 'index'])->name('dashboard');
+// Route::get('/dashboard-user', [AuthController::class, 'dashboard'])->name('dashboard-user');
+// Route::get('/dashboard-user', [AuthController::class, 'dashboard'])->name('dashboard');
 
 // Route untuk Mobile Legends
 Route::get('/game/ml', [GameController::class, 'ml'])->name('game.ml');
