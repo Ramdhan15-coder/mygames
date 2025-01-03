@@ -137,7 +137,7 @@
                                 <span class="badge bg-secondary">{{ $order->status }}</span>
                             @elseif ($order->status == 'Terbayar')
                                 <span class="badge bg-warning text-dark">{{ $order->status }}</span>
-                            @elseif ($order->status == 'Selesai')
+                            @elseif ($order->status == 'Berhasil')
                                 <span class="badge bg-success text-dark">{{ $order->status }}</span>
                             @else
                                 <span class="badge bg-danger">{{ $order->status }}</span>

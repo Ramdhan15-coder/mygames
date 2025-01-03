@@ -36,8 +36,10 @@
                     <table class="min-w-full mt-6">
                         <thead class="bg-gray-200 dark:bg-gray-700">
                             <tr>
-                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-100">ID
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-100">No
                                 </th>
+                                <th class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-100">
+                                    Akun Game</th>
                                 <th class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-100">
                                     Produk</th>
                                 <th class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-100">
@@ -53,7 +55,8 @@
                         <tbody>
                             @foreach ($orders as $order)
                                 <tr>
-                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{{ $order->id }}
+                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{{  $loop->iteration }}
+                                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{{  $order->akun_game }}
                                     </td>
                                     <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                                         {{ $order->produk->produk }} {{ $order->produk->satuan }}</td>

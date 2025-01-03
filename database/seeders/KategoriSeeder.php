@@ -60,6 +60,36 @@ class KategoriSeeder extends Seeder
                 'deskripsi' => 'Platform game dengan berbagai game buatan pengguna.',
                 'image' => 'images/kategoris/roblox.jpg',
             ],
+            [
+                'nama' => 'Apex Legends Mobile',
+                'deskripsi' => 'Game battle royale dengan karakter unik dan mekanik khusus.',
+                'image' => 'images/kategoris/apex_legends_mobile.jpg',
+            ],
+            [
+                'nama' => 'League of Legends: Wild Rift',
+                'deskripsi' => 'Game MOBA dengan strategi tingkat tinggi.',
+                'image' => 'images/kategoris/wild_rift.jpg',
+            ],
+            [
+                'nama' => 'Fortnite',
+                'deskripsi' => 'Game battle royale dengan mekanik membangun dan grafis penuh warna.',
+                'image' => 'images/kategoris/fortnite.jpg',
+            ],
+            [
+                'nama' => 'Valorant Mobile',
+                'deskripsi' => 'Game FPS kompetitif dengan agen dan kemampuan unik.',
+                'image' => 'images/kategoris/valorant_mobile.jpg',
+            ],
+            [
+                'nama' => 'Candy Crush Saga',
+                'deskripsi' => 'Game puzzle adiktif dengan banyak level menantang.',
+                'image' => 'images/kategoris/candy_crush.jpg',
+            ],
+            [
+                'nama' => 'Pokémon GO',
+                'deskripsi' => 'Game AR yang memungkinkan Anda menangkap Pokémon di dunia nyata.',
+                'image' => 'images/kategoris/pokemon_go.jpg',
+            ],
         ];
 
         foreach ($kategoris as $kategori) {

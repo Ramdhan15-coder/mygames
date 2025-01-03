@@ -13,7 +13,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::where('user_id', Auth::id())->paginate(10);
+        $orders = Order::paginate(10);
         return view('admin.order.index', compact('orders'));
     }
 
@@ -53,7 +53,7 @@ class OrderController extends Controller
         //     'total_harga' => $total_harga,
         //     'final_harga' => $final_harga,
         // ]);
-
+        
         Order::create([
             'user_id' => Auth::id(),
             'kategori_id' => $produk->kategori_id,
@@ -69,6 +69,18 @@ class OrderController extends Controller
         ]);
 
         return redirect()->route('orders.create')->with('success', 'Pesanan berhasil dibuat.');
+    }
+    public function updateStatus(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        $request->validate([
+            'status' => 'required|in:Terbayar,Pending,Cancelled,Berhasil',
+        ]);
+
+        $order->status = $request->status;
+        $order->save();
+
+        return redirect()->route('order.index')->with('success', 'Status pesanan berhasil diperbarui.');
     }
     
 }

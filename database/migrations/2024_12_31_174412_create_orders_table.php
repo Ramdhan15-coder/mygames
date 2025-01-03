@@ -21,7 +21,7 @@ class CreateOrdersTable extends Migration
             $table->integer('diskon')->nullable();
             $table->decimal('final_harga', 15, 2);
             $table->string('bukti_pembayaran');
-            $table->string('status');
+            $table->string('status')->default('Terbayar');
             $table->timestamps();
         });
     }

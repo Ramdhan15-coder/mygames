@@ -11,7 +11,8 @@ use App\Http\Controllers\Admin\KuponController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\DashboardController;
-
+use Illuminate\Http\Request;
+use App\Models\Kupon;
 require __DIR__ . '/auth.php';
 Route::get('/', function () {
     return view('app');
@@ -23,7 +24,23 @@ Route::resource('kupon', KuponController::class);
 Route::resource('role', RoleController::class);
 Route::resource('order', OrderController::class);
 Route::get('/riwayat', [DashboardController::class, 'riwayat'])->name('riwayat');
+Route::get('/orders/create', [OrderController::class, 'create'])->name('orders.create');
 Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
+// Route::put('/admin/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+Route::put('order/{order}/update-status', [OrderController::class, 'updateStatus'])->name('order.updateStatus');
+
+Route::get('/riwayat', [DashboardController::class, 'riwayat'])->name('riwayat');
+Route::get('/check-kupon', function (Request $request) {
+    try {
+        $kupon = Kupon::where('kode', $request->query('kode'))->first();
+        if ($kupon) {
+            return response()->json(['valid' => true, 'diskon' => $kupon->diskon]);
+        }
+        return response()->json(['valid' => false]);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Terjadi kesalahan saat memeriksa kupon'], 500);
+    }
+});
 // Halaman login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 // Proses login

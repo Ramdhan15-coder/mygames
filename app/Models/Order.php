@@ -20,6 +20,7 @@ class Order extends Model
         'diskon',
         'final_harga',
         'bukti_pembayaran',
+        'Status',
     ];
     public function produk()
     {
