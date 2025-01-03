@@ -26,18 +26,21 @@ class AuthController extends Controller
     // Proses login
     public function login(Request $request)
     {
-        // Validasi data login
         $validated = $request->validate([
             'email' => 'required|email',
             'password' => 'required|string|min:8',
         ]);
 
-        // Cek apakah login berhasil
         if (Auth::attempt($validated)) {
+
+            $user = Auth::user();
+
+            if ($user->role_id == 1) {
+                return redirect()->route('users.index');
+            }
+
             return redirect()->route('dashboard-user');
         }
-
-        // Jika gagal login, kembali ke form login dengan error
         return back()->withErrors(['email' => 'Invalid credentials']);
     }
 
@@ -73,6 +76,7 @@ public function register(Request $request): \Illuminate\Http\RedirectResponse
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
+        'role_id' => 2,
     ]);
 
     // Log apakah user berhasil disimpan

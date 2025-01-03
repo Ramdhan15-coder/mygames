@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\KuponController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\DashboardController;
 
 require __DIR__ . '/auth.php';
 Route::get('/', function () {
@@ -21,6 +22,7 @@ Route::resource('produk', ProdukController::class);
 Route::resource('kupon', KuponController::class);
 Route::resource('role', RoleController::class);
 Route::resource('order', OrderController::class);
+Route::get('/riwayat', [DashboardController::class, 'riwayat'])->name('riwayat');
 Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
 // Halaman login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -33,6 +35,7 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::get('/dashboard-user', [AuthController::class, 'dashboard'])->name('dashboard-user');
+Route::get('/dashboard-user', [AuthController::class, 'dashboard'])->name('dashboard');
 
 // Route untuk Mobile Legends
 Route::get('/game/ml', [GameController::class, 'ml'])->name('game.ml');
