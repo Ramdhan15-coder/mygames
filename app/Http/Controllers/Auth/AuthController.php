@@ -39,7 +39,7 @@ class AuthController extends Controller
                 return redirect()->route('users.index');
             }
 
-            return redirect()->route('dashboard-user');
+            return redirect()->route('dashboard');
         }
         return back()->withErrors(['email' => 'Invalid credentials']);
     }

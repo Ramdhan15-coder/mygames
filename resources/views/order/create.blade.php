@@ -115,7 +115,7 @@
 
     <!-- Navbar Button -->
     <div class="container">
-        {{-- <a href="{{ route('dashboard-user') }}"> --}}
+        <a href="{{ route('dashboard') }}">
         <button class="navbar-button">Dashboard</button>
         </a>
     </div>

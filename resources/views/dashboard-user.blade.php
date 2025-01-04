@@ -33,7 +33,22 @@
             filter: grayscale(0%); /* Warna asli gambar muncul pas hover */
         }
 
+        body.dark-mode {
+            background-color: #121212; /* Background dark mode */
+            color: #e0e0e0; /* Teks warna terang */
+        }
 
+        .navbar.dark-mode {
+            background-color: #1f1f1f; /* Navbar dark mode */
+        }
+
+        .card.dark-mode {
+            background-color: #2c2c2c; /* Background card dalam dark mode */
+        }
+
+        footer.dark-mode {
+            background-color: #1f1f1f; /* Footer dalam dark mode */
+        }
     </style>
     @stack('styles') <!-- Tambahan untuk menambahkan CSS spesifik halaman -->
 </head>
@@ -58,9 +73,6 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{{ route('riwayat') }}">Cek Transaksi</a>
                 </li>
-                {{-- <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Cek Status</a>
-                </li> --}}
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#">Profile</a>
                 </li>
@@ -74,9 +86,15 @@
                             <button type="submit" class="btn btn-danger">Logout</button>
                         </form>
                     </li>
+                    <!-- Tombol Toggle Dark Mode -->
+                    <li class="nav-item ms-2 d-flex align-items-center">
+                        <label class="form-check-label me-2 text-white" for="darkModeSwitch">Dark Mode</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="darkModeSwitch" onchange="toggleDarkMode()">
+                        </div>
+                    </li>
                 @endauth
             </ul>
-
         </div>
     </nav>
 
@@ -102,32 +120,46 @@
             @endforeach
         </div>
     </div>
-        
 
     <!-- Footer -->
-<footer class="bg-dark text-white text-center py-4 mt-5">
-    @yield('footer') <!-- Footer yang bisa diubah per halaman -->
-    
-    <p>&copy; 2024 Top Up All Games | All rights reserved.</p>
-</footer>
-
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        @yield('footer') <!-- Footer yang bisa diubah per halaman -->
+        <p>&copy; 2024 Top Up All Games | All rights reserved.</p>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts') <!-- Tambahan untuk menambahkan JavaScript spesifik halaman -->
     <script>
-        function handleCardClick(game) {
-            // Cek apakah pengguna sudah login atau belum
-            @auth
-                // Jika sudah login, arahkan ke halaman game yang dipilih
-                window.location.href = `{{ url('game') }}/${game}`;
-            @else
-                // Jika belum login, arahkan ke halaman login
-                window.location.href = "{{ route('login') }}";
-            @endauth
+        // Fungsi untuk toggle dark mode        FITUR 3 = DARKMODE
+        function toggleDarkMode() {
+            const body = document.body;
+            const navbar = document.querySelectorAll('.navbar');
+            const cards = document.querySelectorAll('.card');
+            const footer = document.querySelector('footer');
+
+            // Toggle class 'dark-mode' pada elemen body, navbar, cards, dan footer
+            body.classList.toggle('dark-mode');
+            navbar.forEach(nav => nav.classList.toggle('dark-mode'));
+            cards.forEach(card => card.classList.toggle('dark-mode'));
+            footer.classList.toggle('dark-mode');
+
+            // Simpan preferensi pengguna di localStorage
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+
+            // Update status switch berdasarkan mode
+            document.getElementById('darkModeSwitch').checked = isDarkMode;
         }
+
+        // Aktifkan dark mode berdasarkan preferensi yang tersimpan di localStorage
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                toggleDarkMode();
+            }
+            document.getElementById('darkModeSwitch').checked = isDarkMode;
+        });
     </script>
-    
-    
 </body>
 </html>

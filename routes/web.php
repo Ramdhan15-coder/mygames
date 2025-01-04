@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 use App\Models\Kupon;
+use App\Http\Controllers\DarkModeController;
 require __DIR__ . '/auth.php';
 Route::get('/', function () {
     return view('app');
@@ -76,3 +77,5 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::post('/toggle-dark-mode', [DarkModeController::class, 'toggleDarkMode'])->middleware('auth');
