@@ -20,7 +20,11 @@ class DashboardController extends Controller
     public function riwayat()
     {
         $username = Auth::user()->name;
-        $orders = Order::where('user_id', Auth::id())->with('produk')->get();
+        $orders = Order::where('user_id', Auth::id())
+            ->with(['produk', 'payment'])
+            ->get();
+    
         return view('riwayat', compact('username', 'orders'));
     }
+    
 }

@@ -138,14 +138,16 @@
                             Rp {{ number_format($order->final_harga, 0, ',', '.') }}
                         </td>
                         <td class="px-4 py-2 text-sm text-center">
-                            @if ($order->status == 'Pending')
-                                <span class="badge bg-secondary">{{ $order->status }}</span>
-                            @elseif ($order->status == 'Terbayar')
-                                <span class="badge bg-warning text-dark">{{ $order->status }}</span>
-                            @elseif ($order->status == 'Berhasil')
-                                <span class="badge bg-success text-dark">{{ $order->status }}</span>
+                            @if ($order->payment->status == 'Pending')
+                                <span class="badge bg-secondary">{{ $order->payment->status }}</span>
+                            @elseif ($order->payment->status == 'Terbayar')
+                                <span class="badge bg-warning text-dark">{{ $order->payment->status }}</span>
+                            @elseif ($order->payment->status == 'Berhasil')
+                                <span class="badge bg-success text-dark">{{ $order->payment->status }}</span>
+                            @elseif ($order->payment->status == 'Cancelled')
+                                <span class="badge bg-danger text-dark">{{ $order->payment->status }}</span>
                             @else
-                                <span class="badge bg-danger">{{ $order->status }}</span>
+                                <span class="badge bg-danger">{{ $order->payment->status }}</span>
                             @endif
                         </td>
                     </tr>
