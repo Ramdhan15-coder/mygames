@@ -37,6 +37,8 @@ class AuthController extends Controller
 
             if ($user->role_id == 1) {
                 return redirect()->route('users.index');
+            } elseif ($user->role_id == 2) {
+                return redirect()->route('order.index');
             }
 
             return redirect()->route('dashboard');

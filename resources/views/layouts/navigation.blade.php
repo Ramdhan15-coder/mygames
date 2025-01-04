@@ -11,7 +11,11 @@
                 </div>
 
                 <!-- Navigation Links -->
-
+                @php
+                $userRole = Auth::user()->role_id;
+            @endphp
+    
+            @if ($userRole == 1)
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
                         {{ __('Users') }}
@@ -37,12 +41,15 @@
                         {{ __('Kupon') }}
                     </x-nav-link>
                 </div>
+                @endif
+
+                @if ($userRole == 2 || $userRole == 1)
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('order.index')" :active="request()->routeIs('order.*')">
                         {{ __('Daftar Pesanan') }}
                     </x-nav-link>
                 </div>
-
+                @endif
                 {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
@@ -111,36 +118,46 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div> --}}
-        <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
-                {{ __('Users') }}
-            </x-nav-link>
-        </div>
-        <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link :href="route('role.index')" :active="request()->routeIs('role.*')">
-                {{ __('Role') }}
-            </x-nav-link>
-        </div>
-        <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link :href="route('kategori.index')" :active="request()->routeIs('kategori.*')">
-                {{ __('Kategori') }}
-            </x-nav-link>
-        </div>
-        <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link :href="route('produk.index')" :active="request()->routeIs('produk.*')">
-                {{ __('Produk') }}
-            </x-nav-link>
-        </div>
-        <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link :href="route('kupon.index')" :active="request()->routeIs('kupon.*')">
-                {{ __('Kupon') }}
-            </x-nav-link>
-        </div>
-        <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link :href="route('order.index')" :active="request()->routeIs('order.*')">
-                {{ __('Daftar Pesanan') }}
-            </x-nav-link>
-        </div>
+        @php
+            $userRole = Auth::user()->role_id;
+        @endphp
+
+        @if ($userRole == 1)
+            <div class="pt-2 pb-3 space-y-1">
+                <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                    {{ __('Users') }}
+                </x-nav-link>
+            </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-nav-link :href="route('role.index')" :active="request()->routeIs('role.*')">
+                    {{ __('Role') }}
+                </x-nav-link>
+            </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-nav-link :href="route('kategori.index')" :active="request()->routeIs('kategori.*')">
+                    {{ __('Kategori') }}
+                </x-nav-link>
+            </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-nav-link :href="route('produk.index')" :active="request()->routeIs('produk.*')">
+                    {{ __('Produk') }}
+                </x-nav-link>
+            </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-nav-link :href="route('kupon.index')" :active="request()->routeIs('kupon.*')">
+                    {{ __('Kupon') }}
+                </x-nav-link>
+            </div>
+        @endif
+
+        @if ($userRole == 2 || $userRole == 1)
+            <div class="pt-2 pb-3 space-y-1">
+                <x-nav-link :href="route('order.index')" :active="request()->routeIs('order.*')">
+                    {{ __('Daftar Pesanan') }}
+                </x-nav-link>
+            </div>
+        @endif
+
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
