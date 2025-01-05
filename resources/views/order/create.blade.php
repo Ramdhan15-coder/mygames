@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Top Up FreeFire</title>
+    <title>Top Up {{ $nama }}</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         body {
-            background: url('{{ asset('assets/ff_bg.jpg') }}') no-repeat center center fixed;
+            background: url('{{ asset('assets/bg.jpg') }}') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
             display: flex;
@@ -127,12 +127,16 @@
             </div>
             <form action="{{ route('orders.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <div class="mb-3 text-center" style="margin-top: 20px">
+                    <img src="{{ Storage::url($image) }}" alt="{{ $nama }}" class="img-fluid" style="max-height: 200px;">
+                    <h3 style="color: black">{{ $nama }}</h3>
+                </div>
                 <!-- Input Kategori ID -->
                 <input type="hidden" name="kategori_id" value="{{ $kategori_id }}">
 
                 <!-- Input ID Akun Game -->
                 <div class="mb-3">
-                    <label for="akun_game" class="form-label">ID Akun Game</label>
+                    <label for="akun_game" class="form-label">Nama</label>
                     <input type="text" class="form-control" id="akun_game" name="akun_game" required>
                 </div>
 

@@ -21,7 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_id',
+        'google_id', // Tambahkan kolom google_id
+        'role_id',   // Kolom untuk peran user (role)
     ];
 
     /**

@@ -107,7 +107,7 @@
                 <div class="col">
                     <div class="card h-100">
                         <!-- Tautkan gambar ke halaman order/create -->
-                        <a href="{{ route('orders.create', ['kategori_id' => $kategori->id]) }}">
+                        <a href="{{ route('orders.create', ['kategori_id' => $kategori->id, 'nama' => $kategori->nama, 'image' => $kategori->image]) }}">
                             <img src="{{ Storage::url($kategori->image) }}" class="card-img-top custom-img w-100"
                                 alt="{{ $kategori->nama }}">
                         </a>

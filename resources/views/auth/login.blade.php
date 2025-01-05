@@ -7,7 +7,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-            body {
+        body {
             margin: 0;
             padding: 0;
             height: 100vh;
@@ -25,7 +25,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -1; /* Agar video berada di bawah konten */
+            z-index: -1;
         }
 
         .overlay {
@@ -34,20 +34,19 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Overlay hitam semi-transparan */
-            z-index: 1; /* Overlay di atas video */
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
         }
 
         .login-card {
-            background-color: rgba(255, 255, 255, 0.85); /* Mengurangi transparansi agar tidak terlalu terang */
+            background-color: rgba(255, 255, 255, 0.85);
             border-radius: 15px;
             padding: 30px;
             max-width: 400px;
             width: 100%;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-            z-index: 2; /* Login card tetap di atas overlay */
+            z-index: 2;
         }
-
 
         .btn-login {
             background-color: #007bff;
@@ -57,6 +56,36 @@
 
         .btn-login:hover {
             background-color: #0056b3;
+        }
+
+        .btn-google {
+            background-color: #ea4335;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .btn-google:hover {
+            background-color: #c62d23;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            display: inline-block;
+            width: 45%;
+            height: 1px;
+            background: #ddd;
+            vertical-align: middle;
+        }
+
+        .divider span {
+            padding: 0 10px;
+            color: #888;
         }
     </style>
 </head>
@@ -69,7 +98,6 @@
 
     <!-- Login Form -->
     <div class="login-card">
-        <!-- Display success message -->
         @if(session('success'))
             <div class="alert alert-success mb-3">
                 {{ session('success') }}
@@ -89,18 +117,30 @@
             </div>
             <button type="submit" class="btn btn-login w-100">Login</button>
         </form>
+
+        <div class="divider">
+            <span>atau</span>
+        </div>
+        
+        <!-- Tombol Login dengan Google -->
+        <a href="{{ route('google.login') }}" class="btn btn-google w-100">
+            <i class="fab fa-google"></i> Login menggunakan Google
+        </a>
+        
+
+
         <p class="text-center mt-3">
             Belum punya akun? <a href="{{ route('register') }}">Daftar di sini</a>
         </p>
     </div>
 
     @if ($errors->any())
-    <p style="color: red;">{{ $errors->first() }}</p>
+        <p style="color: red;">{{ $errors->first() }}</p>
     @endif
-
-  
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- FontAwesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </body>
 </html>

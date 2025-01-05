@@ -77,4 +77,15 @@ class ProdukController extends Controller
 
         return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus.');
     }
+
+    public function search(Request $request)
+{
+    $query = $request->input('query'); // Mengambil input pencarian
+
+    // Mencari produk berdasarkan nama
+    $produks = Produk::where('produk', 'like', '%' . $query . '%')->get();
+
+    // Mengembalikan produk dalam bentuk JSON (untuk front-end)
+    return response()->json($produks);
+}
 }

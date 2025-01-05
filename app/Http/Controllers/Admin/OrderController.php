@@ -21,8 +21,11 @@ class OrderController extends Controller
     public function create(Request $request)
     {
         $kategori_id = $request->get('kategori_id');
+        $nama = $request->query('nama');
+        $image = $request->query('image');
         $produks = Produk::where('kategori_id', $kategori_id)->get();
-        return view('order.create', compact('produks', 'kategori_id'));
+        
+        return view('order.create', compact('produks', 'kategori_id', 'nama', 'image'));
     }
 
     public function store(Request $request)

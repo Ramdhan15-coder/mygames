@@ -14,6 +14,9 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 use App\Models\Kupon;
 use App\Http\Controllers\DarkModeController;
+use App\Http\Controllers\Auth\GoogleController;
+use Laravel\Socialite\Facades\Socialite;
+
 require __DIR__ . '/auth.php';
 Route::get('/', function () {
     return view('app');
@@ -79,3 +82,13 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::post('/toggle-dark-mode', [DarkModeController::class, 'toggleDarkMode'])->middleware('auth');
+
+Route::get('/login/google', [AuthController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('/login/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('google.callback');
+
+Route::get('/login/google/callback', [AuthController::class, 'handleGoogleCallback'])
+    ->middleware('web')
+    ->name('google.callback');
+
+
+    Route::get('/search', [ProdukController::class, 'search']);

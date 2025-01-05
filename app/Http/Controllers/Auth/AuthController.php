@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Events\Registered;
+use Laravel\Socialite\Facades\Socialite;
+use Exception;
+
 
 
 
@@ -78,7 +81,7 @@ public function register(Request $request): \Illuminate\Http\RedirectResponse
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
-        'role_id' => 2,
+        'role_id' => 3,
     ]);
 
     // Log apakah user berhasil disimpan
@@ -100,6 +103,58 @@ public function dashboard()
     return view('dashboard-user', compact('username')); // Mengirim data ke view
 }
 
+public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
 
+    /**
+     * Callback dari Google setelah user login
+     */
+
+public function handleGoogleCallback()
+{
+    try {
+        // Ambil informasi pengguna dari Google
+        $googleUser = Socialite::driver('google')->stateless()->user(); // Gunakan `stateless()` untuk mencegah masalah state
+
+        // Log informasi untuk debugging (opsional)
+        Log::info('Google User Info', ['googleUser' => $googleUser]);
+
+        // Cari pengguna berdasarkan Google ID atau email
+        $user = User::where('google_id', $googleUser->getId())
+            ->orWhere('email', $googleUser->getEmail())
+            ->first();
+
+        // Jika pengguna belum ada, buat pengguna baru
+        if (!$user) {
+            $user = User::create([
+                'name' => $googleUser->getName(),
+                'email' => $googleUser->getEmail(),
+                'google_id' => $googleUser->getId(),
+                'avatar' => $googleUser->getAvatar(),
+                'role_id' => 3, // Role pengguna Google
+                'password' => bcrypt('google_default_password'), // Password default jika diperlukan
+            ]);
+        }
+
+        // Login pengguna ke aplikasi
+        Auth::login($user);
+
+        // Redirect ke dashboard-user
+        return redirect()->route('dashboard-user');
+    } catch (Exception $e) {
+        // Log error untuk debugging
+        Log::error('Google Callback Error', ['error' => $e->getMessage()]);
+
+        // Redirect kembali ke halaman login jika ada error
+        return redirect()->route('login')->with('error', 'Login dengan Google gagal. Silakan coba lagi.');
+    }
+}
 
 }
+
+
+
+
+
