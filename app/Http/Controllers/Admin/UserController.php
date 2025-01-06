@@ -9,11 +9,26 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $users = User::with('role')->paginate(10);
-        return view('admin.users.index', compact('users'));
+    public function index(Request $request)
+{
+    $query = User::with('role');
+
+    if ($request->has('search') && $request->search) {
+        $search = $request->search;
+        $query->where(function ($q) use ($search) {
+            $q->where('name', 'LIKE', "%{$search}%")
+              ->orWhere('email', 'LIKE', "%{$search}%")
+              ->orWhereHas('role', function ($q) use ($search) {
+                  $q->where('nama_role', 'LIKE', "%{$search}%");
+              });
+        });
     }
+
+    $users = $query->paginate(10);
+
+    return view('admin.users.index', compact('users'));
+}
+
 
     public function create()
     {

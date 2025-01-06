@@ -13,6 +13,13 @@
                     @if (session('success'))
                         <div class="alert alert-success text-green-600 mt-4">{{ session('success') }}</div>
                     @endif
+                    <form method="GET" action="{{ route('kupon.index') }}" class="mt-6 flex space-x-4">
+                        <input type="text" name="search" value="{{ request('search') }}"
+                            placeholder="Cari kupon (kode)"
+                            class="flex-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <button type="submit"
+                            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Search</button>
+                    </form>
                     <table class="min-w-full mt-6">
                         <thead class="bg-gray-200 dark:bg-gray-700">
                             <tr>

@@ -27,35 +27,28 @@ class GoogleController extends Controller
     public function handleGoogleCallback()
 {
     try {
-        // Tambahkan log setiap langkah
-        \Log::info('Step 1: Masuk ke handleGoogleCallback');
+        $user = Socialite::driver('google')->user();
 
-        // Ambil informasi pengguna dari Google
-        $googleUser = Socialite::driver('google')->stateless()->user();
-        \Log::info('Step 2: Informasi Google didapat', ['googleUser' => $googleUser]);
+            $current_user = User::where('google_id', $user->id)->first();
 
-        // Cari pengguna di database atau buat user baru
-        $user = User::firstOrCreate(
-            ['email' => $googleUser->getEmail()],
-            [
-                'name' => $googleUser->getName(),
-                'google_id' => $googleUser->getId(),
-                'avatar' => $googleUser->getAvatar(),
-                'password' => bcrypt('google_default_password'),
-                'role_id' => 3,
-            ]
-        );
-        \Log::info('Step 3: User ditemukan atau dibuat', ['user' => $user]);
+            if ($current_user) {
 
-        // Login user
-        Auth::login($user, true);
-        \Log::info('Step 4: User berhasil login', ['userId' => $user->id]);
+                Auth::login($current_user);
 
-        // Redirect ke dashboard
-        return redirect()->route('dashboard-user');
-    } catch (\Exception $e) {
-        \Log::error('Error during Google login', ['error' => $e->getMessage()]);
-        return redirect()->route('login')->withErrors('Login dengan Google gagal. Silakan coba lagi.');
-    }
+                return redirect()->intended('login');
+            } else {
+                $newUser = User::updateOrCreate(['email' => $user->email], [
+                    'name' => $user->name,
+                    'google_id' => $user->id,
+                    'password' => encrypt('123456dummy')
+                ]);
+
+                Auth::login($newUser);
+
+                return redirect()->intended('dashboard-user');
+            }
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
 }
 }

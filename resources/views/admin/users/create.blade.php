@@ -18,7 +18,7 @@
                                 <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                                 <input type="text" name="name" id="name"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    required>
+                                    value="nama saya" required>
                             </div>
 
                             <!-- Email -->
@@ -26,7 +26,7 @@
                                 <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                                 <input type="email" name="email" id="email"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    required>
+                                   value="saya@gmail.com" required>
                             </div>
 
                             <!-- Password -->
@@ -34,9 +34,14 @@
                                 <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                                 <input type="password" name="password" id="password"
                                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    required>
+                                   value="password" required>
                             </div>
-
+                            <div>
+                                <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                                <input type="password" name="password_confirmation" id="password_confirmation"
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                   value="password" required>
+                            </div>
                             <!-- Role -->
                             <div>
                                 <label for="role_id" class="block text-sm font-medium text-gray-700">Role</label>

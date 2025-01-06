@@ -8,12 +8,20 @@ use Illuminate\Http\Request;
 
 class KuponController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $kupons = Kupon::paginate(10);
+        $query = Kupon::query();
+    
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
+            $query->where('kode', 'LIKE', "%{$search}%");
+        }
+    
+        $kupons = $query->paginate(10);
+    
         return view('admin.kupon.index', compact('kupons'));
     }
-
+    
     public function create()
     {
         return view('admin.kupon.create');

@@ -9,11 +9,20 @@ use Illuminate\Http\Request;
 
 class ProdukController extends Controller
 {
-    public function index()
-    {
-        $produks = Produk::with('kategori')->paginate(10);
-        return view('admin.produk.index', compact('produks'));
+    public function index(Request $request)
+{
+    $query = Produk::with('kategori');
+
+    if ($request->has('search') && $request->search) {
+        $search = $request->search;
+        $query->where('produk', 'LIKE', "%{$search}%");
     }
+
+    $produks = $query->paginate(10);
+
+    return view('admin.produk.index', compact('produks'));
+}
+
 
     public function create()
     {
