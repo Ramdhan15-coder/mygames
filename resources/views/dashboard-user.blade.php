@@ -73,9 +73,6 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{{ route('riwayat') }}">Cek Transaksi</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Profile</a>
-                </li>
             </ul>
             <ul class="navbar-nav ms-auto" style="margin-right: 300px">
                 <!-- Tombol Logout -->

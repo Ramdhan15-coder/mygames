@@ -66,19 +66,13 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#">Cek Transaksi</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Cek Status</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Profile</a>
-                </li>
             </ul>
-            <ul class="navbar-nav ms-auto" style="margin-right: 300px">
+            <ul class="navbar-nav ms-auto" style="margin-right: 300px; margin-left:1000px">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('login') }}" class="btn btn-primary">Masuk</a>
+                    <button onclick="window.location.href='{{ route('login') }}'" class="btn btn-warning btn-block">Masuk</button>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ route('register') }}"class="btn btn-secondary">Daftar</a>
+                <li class="nav-item" style="margin-left: 7px">
+                    <button onclick="window.location.href='{{ route('register') }}'" class="btn btn-outline-warning btn-block">Daftar</button>
                 </li>
             </ul>
         </div>
